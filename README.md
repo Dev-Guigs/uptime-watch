@@ -1,6 +1,6 @@
 # 🟢 Uptime Watch
 
-[![CI](https://github.com/OWNER/uptime-watch/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/uptime-watch/actions/workflows/ci.yml)
+[![CI](https://github.com/Dev-Guigs/uptime-watch/actions/workflows/ci.yml/badge.svg)](https://github.com/Dev-Guigs/uptime-watch/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
@@ -46,7 +46,7 @@ calculation) is exactly what production tools do.
 ## Installation
 
 ```bash
-git clone https://github.com/OWNER/uptime-watch.git
+git clone https://github.com/Dev-Guigs/uptime-watch.git
 cd uptime-watch
 pip install -r requirements.txt
 ```
