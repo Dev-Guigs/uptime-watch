@@ -4,24 +4,26 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-A small, self-hosted **uptime monitor**: checks a list of HTTP services on an
-interval, stores history in SQLite, notifies Slack/Discord only on state
-*transitions* (not every check), and renders a static status page — your
-own mini "status.io" clone in one Python process.
+Um monitor de **uptime self-hosted** e enxuto: verifica uma lista de
+serviços HTTP em intervalos, guarda o histórico em SQLite, notifica
+Slack/Discord apenas em *transições* de estado (não em toda checagem) e
+gera uma status page estática — seu próprio mini clone do "status.io" em
+um único processo Python.
 
-## Why this exists
+## Por que este projeto existe
 
-Uptime monitoring is one of the first things a DevOps/SRE role touches.
-This project intentionally keeps the moving parts simple and inspectable:
-SQLite instead of a full database, a static HTML file instead of a web
-framework, but the domain logic (transition-based alerting, uptime %
-calculation) is exactly what production tools do.
+Monitoramento de uptime é uma das primeiras coisas que uma vaga de
+DevOps/SRE toca. Este projeto mantém as peças propositalmente simples e
+fáceis de inspecionar: SQLite em vez de um banco completo, um arquivo HTML
+estático em vez de um framework web — mas a lógica de domínio (alertas
+baseados em transição de estado, cálculo de % de uptime) é exatamente o
+que ferramentas de produção fazem.
 
-## Architecture
+## Arquitetura
 
 ```
-┌──────────┐   HTTP GET   ┌─────────┐  transition?  ┌──────────────────┐
-│ Services │─────────────►│ Checker │──────────────►│ StateChangeNotify │──► Slack/Discord
+┌──────────┐   HTTP GET   ┌─────────┐  transição?  ┌──────────────────┐
+│ Serviços │─────────────►│ Checker │─────────────►│ StateChangeNotify │──► Slack/Discord
 └──────────┘              └────┬────┘               └──────────────────┘
                                 │
                                 ▼
@@ -34,16 +36,16 @@ calculation) is exactly what production tools do.
                         └───────────────┘
 ```
 
-## Features
+## Funcionalidades
 
-- 🔁 Polls any number of HTTP endpoints on a configurable interval
-- 📉 Tracks uptime %, average response time, and incident history in SQLite
-- 🔔 Slack/Discord webhook alerts **only on state change** (up→down, down→up)
-- 📄 Generates a static, styled `status.html` you can serve anywhere
-- ✅ Fully unit tested with injectable HTTP + notification transports
-- ⚡ `--once` mode for cron jobs / CI smoke tests
+- 🔁 Verifica qualquer número de endpoints HTTP em intervalo configurável
+- 📉 Acompanha % de uptime, tempo médio de resposta e histórico de incidentes em SQLite
+- 🔔 Alertas via webhook Slack/Discord **apenas em mudança de estado** (up→down, down→up)
+- 📄 Gera uma `status.html` estática e estilizada, que você pode servir em qualquer lugar
+- ✅ Totalmente testado, com transporte HTTP e de notificação injetáveis
+- ⚡ Modo `--once` para cron jobs / smoke tests em CI
 
-## Installation
+## Instalação
 
 ```bash
 git clone https://github.com/Dev-Guigs/uptime-watch.git
@@ -51,9 +53,9 @@ cd uptime-watch
 pip install -r requirements.txt
 ```
 
-## Usage
+## Uso
 
-1. Copy and edit the example config:
+1. Copie e edite a configuração de exemplo:
 
    ```bash
    cp examples/config.example.yml config.yml
@@ -71,21 +73,21 @@ pip install -r requirements.txt
      webhook_url: https://hooks.slack.com/services/xxx
    ```
 
-2. Run it:
+2. Execute:
 
    ```bash
    python -m uptime_watch.cli --config config.yml --db uptime.db --status-page status.html
    ```
 
-3. Open `status.html` in a browser — it updates after every check pass.
+3. Abra `status.html` no navegador — ela é atualizada a cada rodada de checagem.
 
-### One-shot mode (for cron / CI)
+### Modo one-shot (para cron / CI)
 
 ```bash
 python -m uptime_watch.cli --config config.yml --once
 ```
 
-## Testing
+## Testes
 
 ```bash
 pip install -r requirements-dev.txt
@@ -94,10 +96,10 @@ pytest --cov=uptime_watch
 
 ## Roadmap
 
-- [ ] Serve `status.html` over a tiny built-in HTTP server
-- [ ] Historical uptime chart (last 24h/7d/30d)
-- [ ] Multi-region checks (run from several hosts, aggregate results)
+- [ ] Servir `status.html` por um pequeno servidor HTTP embutido
+- [ ] Gráfico histórico de uptime (últimas 24h/7d/30d)
+- [ ] Checagens multi-região (rodar de vários hosts, agregar resultados)
 
-## License
+## Licença
 
-MIT — see [LICENSE](LICENSE).
+MIT — veja [LICENSE](LICENSE).
