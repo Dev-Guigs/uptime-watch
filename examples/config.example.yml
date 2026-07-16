@@ -1,0 +1,20 @@
+services:
+  - name: API Principal
+    url: https://api.example.com/health
+    expected_status: 200
+    timeout_seconds: 5
+
+  - name: Site Institucional
+    url: https://example.com
+    expected_status: 200
+    timeout_seconds: 5
+
+  - name: Serviço de Pagamentos
+    url: https://payments.example.com/health
+    expected_status: 200
+    timeout_seconds: 3
+
+settings:
+  interval_seconds: 30
+  # Slack ou Discord incoming webhook para notificar mudanças de estado
+  webhook_url: null
